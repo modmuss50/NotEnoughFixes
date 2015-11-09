@@ -13,15 +13,15 @@ import net.minecraftforge.event.world.WorldEvent;
 public class NotEnoughFixes {
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event){
+    public void postInit(FMLPostInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
         FMLCommonHandler.instance().bus().register(this);
     }
 
     @SubscribeEvent
-    public void worldLoad(WorldEvent.Load event){
+    public void worldLoad(WorldEvent.Load event) {
         System.out.println("Displaying all usage handlers");
-        for(IUsageHandler usageHandler : GuiUsageRecipe.usagehandlers){
+        for (IUsageHandler usageHandler : GuiUsageRecipe.usagehandlers) {
             System.out.println("Usage: " + usageHandler.getClass().getCanonicalName());
         }
 

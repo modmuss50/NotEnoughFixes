@@ -7,7 +7,7 @@ import java.util.Map;
 //-Dfml.coreMods.load=me.modmuss50.nef.NEFASM
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 public class NEFASM implements IFMLLoadingPlugin {
-        @Override
+    @Override
     public String[] getASMTransformerClass() {
         return new String[]{"me.modmuss50.nef.NEFClassTransformer"};
     }

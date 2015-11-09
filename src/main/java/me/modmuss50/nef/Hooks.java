@@ -21,11 +21,13 @@ public class Hooks {
         Set efuels = excludedFuels();
         Iterator i$ = ItemList.items.iterator();
 
-        while(i$.hasNext()) {
-            ItemStack item = (ItemStack)i$.next();
-            if(item.getItem() != null && !efuels.contains(item.getItem())) {
+        while (i$.hasNext()) {
+            ItemStack item = (ItemStack) i$.next();
+            if (item.getItem() == null) {
+                System.out.println("Found a null item, in an itemstack!");
+            } else if (!efuels.contains(item.getItem())) {
                 int burnTime = TileEntityFurnace.getItemBurnTime(item);
-                if(burnTime > 0) {
+                if (burnTime > 0) {
                     FurnaceRecipeHandler.afuels.add(new FurnaceRecipeHandler.FuelPair(item.copy(), burnTime));
                 }
             }
