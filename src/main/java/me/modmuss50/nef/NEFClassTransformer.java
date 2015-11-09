@@ -26,7 +26,7 @@ public class NEFClassTransformer implements IClassTransformer {
         } else if (name.equals("net.minecraft.item.ItemStack")) {
             ClassNode classNode = readClassFromBytes(basicClass);
             MethodNode method = findMethodNodeOfClass(classNode, "func_150996_a", "(Lnet/minecraft/item/Item;)V");
-
+            //TODO make a thing to crash when an item stack with a null item is created.
         }
         return basicClass;
     }
