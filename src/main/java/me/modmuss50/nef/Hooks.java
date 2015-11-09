@@ -44,4 +44,10 @@ public class Hooks {
         efuels.add(Item.getItemFromBlock(Blocks.trapped_chest));
         return efuels;
     }
+
+    public static void checkNull(Item item) {
+        if (item == null) {
+            throw new NullPointerException("An itemstack was created with a null item!");
+        }
+    }
 }

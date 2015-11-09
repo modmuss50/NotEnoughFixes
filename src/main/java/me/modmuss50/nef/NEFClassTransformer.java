@@ -24,9 +24,19 @@ public class NEFClassTransformer implements IClassTransformer {
             return writeClassToBytes(classNode);
 
         } else if (name.equals("net.minecraft.item.ItemStack")) {
+            boolean isObfuscated = !name.equals(transformedName);
+            System.out.println(name);
             ClassNode classNode = readClassFromBytes(basicClass);
-            MethodNode method = findMethodNodeOfClass(classNode, "func_150996_a", "(Lnet/minecraft/item/Item;)V");
-            //TODO make a thing to crash when an item stack with a null item is created.
+            MethodNode method = findMethodNodeOfClass(classNode, isObfuscated ? "a" : "func_150996_a", isObfuscated ? "(ace;)V" : "(Lnet/minecraft/item/Item;)V");
+
+            InsnList toInject = new InsnList();
+            toInject.add(new VarInsnNode(Opcodes.ALOAD, 0));
+            toInject.add(new VarInsnNode(Opcodes.ALOAD, 1));
+            toInject.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(Hooks.class), "checkNull", "(Lnet/minecraft/item/Item;)V", false));
+
+            method.instructions.insertBefore(getOrFindInstruction(method.instructions.getLast(), true).getPrevious(), toInject);
+
+            return writeClassToBytes(classNode);
         }
         return basicClass;
     }
