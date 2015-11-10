@@ -4,9 +4,9 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
 import java.util.Map;
 
-//-Dfml.coreMods.load=me.modmuss50.nef.NEFASM
+//-Dfml.coreMods.load=me.modmuss50.nef.NotEnoughFixesCore
 @IFMLLoadingPlugin.MCVersion("1.7.10")
-public class NEFASM implements IFMLLoadingPlugin {
+public class NotEnoughFixesCore implements IFMLLoadingPlugin {
     @Override
     public String[] getASMTransformerClass() {
         return new String[]{"me.modmuss50.nef.NEFClassTransformer"};

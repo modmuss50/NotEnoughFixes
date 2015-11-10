@@ -16,7 +16,7 @@ public class NEFClassTransformer implements IClassTransformer {
             System.out.println("Patching FurnaceRecipeHandler");
 
             InsnList toInject = new InsnList();
-            toInject.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(Hooks.class), "findFuels", "()V", false));
+            toInject.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(NeiHooks.class), "findFuels", "()V", false));
             toInject.add(new InsnNode(Opcodes.RETURN));
 
             method.instructions.insertBefore(findFirstInstruction(method), toInject);
@@ -25,14 +25,13 @@ public class NEFClassTransformer implements IClassTransformer {
 
         } else if (name.equals("net.minecraft.item.ItemStack")) {
             boolean isObfuscated = !name.equals(transformedName);
-            System.out.println(name);
             ClassNode classNode = readClassFromBytes(basicClass);
             MethodNode method = findMethodNodeOfClass(classNode, isObfuscated ? "a" : "func_150996_a", isObfuscated ? "(ace;)V" : "(Lnet/minecraft/item/Item;)V");
 
             InsnList toInject = new InsnList();
             toInject.add(new VarInsnNode(Opcodes.ALOAD, 0));
             toInject.add(new VarInsnNode(Opcodes.ALOAD, 1));
-            toInject.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(Hooks.class), "checkNull", "(Lnet/minecraft/item/Item;)V", false));
+            toInject.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(MCHooks.class), "checkNull", "(Lnet/minecraft/item/Item;)V", false));
 
             method.instructions.insertBefore(getOrFindInstruction(method.instructions.getLast(), true).getPrevious(), toInject);
 

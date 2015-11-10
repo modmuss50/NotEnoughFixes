@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Hooks {
+public class NeiHooks {
 
     //This is the same as the one from nei, but it has null check on the item.
     public static void findFuels() {
@@ -45,9 +45,4 @@ public class Hooks {
         return efuels;
     }
 
-    public static void checkNull(Item item) {
-        if (item == null) {
-            throw new NullPointerException("An itemstack was created with a null item!");
-        }
-    }
 }
