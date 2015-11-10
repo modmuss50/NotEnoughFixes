@@ -20,17 +20,22 @@ public class NeiHooks {
         FurnaceRecipeHandler.afuels = new ArrayList();
         Set efuels = excludedFuels();
         Iterator i$ = ItemList.items.iterator();
+        ArrayList<ItemStack> stacksToRemove = new ArrayList<ItemStack>();
 
         while (i$.hasNext()) {
             ItemStack item = (ItemStack) i$.next();
-            if (item.getItem() == null) {
-                System.out.println("Found a null item, in an itemstack!");
+            if (item == null || item.getItem() == null) {
+                System.out.println("Found a null item, in an itemstack! will mark it for removal from neu");
+                stacksToRemove.add(item);
             } else if (!efuels.contains(item.getItem())) {
                 int burnTime = TileEntityFurnace.getItemBurnTime(item);
                 if (burnTime > 0) {
                     FurnaceRecipeHandler.afuels.add(new FurnaceRecipeHandler.FuelPair(item.copy(), burnTime));
                 }
             }
+        }
+        if(!stacksToRemove.isEmpty()){
+            ItemList.items.removeAll(stacksToRemove);
         }
     }
 
