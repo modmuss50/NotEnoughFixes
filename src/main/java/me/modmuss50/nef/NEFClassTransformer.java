@@ -10,23 +10,10 @@ import org.objectweb.asm.tree.*;
 public class NEFClassTransformer implements IClassTransformer {
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
-        if (name.equals("codechicken.nei.recipe.FurnaceRecipeHandler")) {
-            ClassNode classNode = readClassFromBytes(basicClass);
-            MethodNode method = findMethodNodeOfClass(classNode, "findFuels", "()V");
-            System.out.println("Patching FurnaceRecipeHandler");
-
-            InsnList toInject = new InsnList();
-            toInject.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(NeiHooks.class), "findFuels", "()V", false));
-            toInject.add(new InsnNode(Opcodes.RETURN));
-
-            method.instructions.insertBefore(findFirstInstruction(method), toInject);
-
-            return writeClassToBytes(classNode);
-
-        } else if (name.equals("net.minecraft.item.ItemStack")) {
+         if (name.equals("net.minecraft.item.ItemStack")) {
             boolean isObfuscated = !name.equals(transformedName);
             ClassNode classNode = readClassFromBytes(basicClass);
-            MethodNode method = findMethodNodeOfClass(classNode, isObfuscated ? "a" : "func_150996_a", isObfuscated ? "(ace;)V" : "(Lnet/minecraft/item/Item;)V");
+            MethodNode method = findMethodNodeOfClass(classNode, isObfuscated ? "a" : "setItem", isObfuscated ? "(ace;)V" : "(Lnet/minecraft/item/Item;)V");
 
             InsnList toInject = new InsnList();
             toInject.add(new VarInsnNode(Opcodes.ALOAD, 0));
