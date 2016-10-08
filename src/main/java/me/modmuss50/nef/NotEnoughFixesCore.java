@@ -6,7 +6,7 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import java.util.Map;
 
 //-Dfml.coreMods.load=me.modmuss50.nef.NotEnoughFixesCore
-@IFMLLoadingPlugin.MCVersion("1.8.8")
+@IFMLLoadingPlugin.MCVersion("1.10.2")
 public class NotEnoughFixesCore implements IFMLLoadingPlugin {
     @Override
     public String[] getASMTransformerClass() {
